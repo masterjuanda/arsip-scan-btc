@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\ReportController;
+
+Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+Route::get('/upload', [ReportController::class, 'create'])->name('reports.create');
+Route::post('/upload', [ReportController::class, 'store'])->name('reports.store');
