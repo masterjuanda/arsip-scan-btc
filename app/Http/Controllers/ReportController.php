@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Report;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -42,5 +43,20 @@ class ReportController extends Controller
         ]);
 
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil diupload!');
+    }
+
+    public function destroy($id)
+    {
+        $report = Report::findOrFail($id);
+
+        // Hapus file gambar dari storage
+        if ($report->file_path && Storage::exists('public/' . $report->file_path)) {
+            Storage::delete('public/' . $report->file_path);
+        }
+
+        // Hapus data dari database
+        $report->delete();
+
+        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus.');
     }
 }

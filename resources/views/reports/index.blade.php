@@ -32,7 +32,43 @@
                                 <small class="text-muted">Uploaded:
                                     {{ $report->created_at->format('d M Y, H:i') }}</small>
                             </p>
+
+                            <!-- Tombol Hapus -->
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{ $report->id }}">
+                                Hapus
+                            </button>
                         </div>
+
+                        <!-- Modal Konfirmasi Hapus -->
+                        <div class="modal fade" id="deleteModal{{ $report->id }}" tabindex="-1"
+                            aria-labelledby="deleteModalLabel{{ $report->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $report->id }}">Konfirmasi
+                                            Hapus</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah kamu yakin ingin menghapus laporan
+                                        <strong>{{ $report->title }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{ route('reports.destroy', $report->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             @empty
@@ -41,6 +77,9 @@
         </div>
     </div>
 
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
