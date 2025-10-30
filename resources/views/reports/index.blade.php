@@ -23,54 +23,29 @@
         <div class="row">
             @forelse ($reports as $report)
                 <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
+                    <div class="card h-100 shadow-sm" style="min-height: 300px;">
                         <img src="{{ asset('storage/' . $report->file_path) }}" class="card-img-top"
-                            alt="{{ $report->title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $report->title }}</h5>
-                            <p class="card-text">
-                                <small class="text-muted">Uploaded:
-                                    {{ $report->created_at->format('d M Y, H:i') }}</small>
-                            </p>
-
-                            <!-- Tombol Hapus -->
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal{{ $report->id }}">
-                                Hapus
-                            </button>
-                        </div>
-
-                        <!-- Modal Konfirmasi Hapus -->
-                        <div class="modal fade" id="deleteModal{{ $report->id }}" tabindex="-1"
-                            aria-labelledby="deleteModalLabel{{ $report->id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel{{ $report->id }}">Konfirmasi
-                                            Hapus</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Apakah kamu yakin ingin menghapus laporan
-                                        <strong>{{ $report->title }}</strong>?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form action="{{ route('reports.destroy', $report->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
-                                    </div>
-                                </div>
+                            style="height: 200px; object-fit: cover;" alt="Scan">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="card-title">{{ $report->location }}</h5>
+                                <p class="card-text text-muted mb-1">
+                                    <small>{{ \Carbon\Carbon::parse($report->date)->translatedFormat('d F Y') }}</small>
+                                </p>
+                                <p class="card-text small">{{ $report->note ?? '-' }}</p>
+                            </div>
+                            <div class="mt-3 text-end">
+                                <form action="{{ route('reports.destroy', $report->id) }}" method="POST"
+                                    onsubmit="return confirm('Yakin mau hapus laporan ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
+
             @empty
                 <p class="text-center text-muted">Belum ada laporan yang di-upload.</p>
             @endforelse
