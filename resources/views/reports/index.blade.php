@@ -24,7 +24,7 @@
             @forelse ($reports as $report)
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('storage/' . $report->image_path) }}" class="card-img-top"
+                        <img src="{{ asset('storage/' . $report->file_path) }}" class="card-img-top"
                             alt="{{ $report->title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $report->title }}</h5>

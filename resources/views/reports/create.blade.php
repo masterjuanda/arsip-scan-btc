@@ -23,21 +23,32 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="title" class="form-label">Judul Laporan</label>
-                        <input type="text" name="title" id="title" class="form-control"
-                            placeholder="Contoh: BTC Akhir Metro 1 - Selasa 28 Oktober" required>
+                        <label for="location" class="form-label">Lokasi</label>
+                        <input type="text" name="location" id="location" class="form-control"
+                            placeholder="Contoh: Metro 1" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="image" class="form-label">File Scan (PNG/JPG)</label>
-                        <input type="file" name="image" id="image" class="form-control"
+                        <label for="date" class="form-label">Tanggal</label>
+                        <input type="date" name="date" id="date" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file" class="form-label">File Scan (PNG/JPG)</label>
+                        <input type="file" name="file" id="file" class="form-control"
                             accept=".png,.jpg,.jpeg" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="note" class="form-label">Catatan (Opsional)</label>
+                        <textarea name="note" id="note" class="form-control" rows="3" placeholder="Keterangan tambahan..."></textarea>
                     </div>
 
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
